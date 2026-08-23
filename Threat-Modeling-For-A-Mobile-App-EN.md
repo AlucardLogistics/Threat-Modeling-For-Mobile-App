@@ -1,10 +1,9 @@
-Threat modeling for a mobile app
+# Threat modeling for a mobile app
 
-Cyber Security Project
+### Cyber Security Project
 
-Numele Studentului: Dragos S.
+#### By Dragos S.
 
-Contents
 
 [Chapter 1: Introduction 3](#_Toc238378632)
 
