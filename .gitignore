@@ -1,0 +1,10 @@
+# Ignore Word and PDF documents
+*.docx
+*.doc
+*.pdf
+
+# Ignore Mac system files if you are on a Mac
+.DS_Store
+
+# Ignore VS Code local workspace settings
+.vscode/
