@@ -5,87 +5,87 @@
 #### By Dragos S.
 
 
-[Chapter 1: Introduction 3](#_Toc238378632)
+[Chapter 1: Introduction](#chapter-1-introduction)
 
-[1.1 Brief history of the evolution of mobile applications 3](#_Toc238378633)
+[1.1 Brief history of the evolution of mobile applications](#11-brief-history-of-the-evolution-of-mobile-applications)
 
-[1.2 Impact of Evolution: Opportunities and Opportunities for Attack (Cyber Security) 3](#_Toc238378634)
+[1.2 Impact of Evolution: Opportunities and Opportunities for Attack (Cyber Security)](#12-impact-of-evolution-opportunities-and-opportunities-for-attack-cyber-security)
 
-[1.3 Frame of Reference: Emergence of the OWASP Top 10 Mobile 4](#_Toc238378635)
+[1.3 Frame of Reference: Emergence of the OWASP Top 10 Mobile](#13-frame-of-reference-emergence-of-the-owasp-top-10-mobile)
 
-[1.4 Case Study: Model Application (Revolut) 4](#_Toc238378636)
+[1.4 Case Study: Model Application (Revolut)](#14-case-study-model-application-revolut)
 
-[1.5 Comparativ: Web Application (Site Revolut) vs. Mobile Application (Android / iOS) 5](#_Toc238378637)
+[1.5 Comparativ: Web Application (Site Revolut) vs. Mobile Application (Android / iOS)](#15-comparativ-web-application-site-revolut-vs-mobile-application-android--ios)
 
-[Chapter 2: Analysis of Collected Data and Device-Level Risks 9](#_Toc238378638)
+[Chapter 2: Analysis of Collected Data and Device-Level Risks](#chapter-2-analysis-of-collected-data-and-device-level-risks)
 
-[2.1 Classification of Collected and Processed Data 9](#_Toc238378639)
+[2.1 Classification of Collected and Processed Data](#21-classification-of-collected-and-processed-data)
 
-[2.2 Threat Scenarios: Lost, Stolen, or Compromised Device 10](#_Toc238378640)
+[2.2 Threat Scenarios: Lost, Stolen, or Compromised Device](#22-threat-scenarios-lost-stolen-or-compromised-device)
 
-[2.3 Risk Matrix (Device-Level STRIDE) 13](#_Toc238378641)
+[2.3 Risk Matrix (Device-Level STRIDE)](#23-risk-matrix-device-level-stride)
 
-[2.4 Defensive Controls 14](#_Toc238378642)
+[2.4 Defensive Controls](#24-defensive-controls)
 
-[DEMO: Practical Case Study — Reverse Engineering and Exploitation of OWASP M1 (Improper Credential Usage) 15](#_Toc238378643)
+[DEMO: Practical Case Study — Reverse Engineering and Exploitation of OWASP M1 (Improper Credential Usage)](#demo-practical-case-study--reverse-engineering-and-exploitation-of-owasp-m1-improper-credential-usage)
 
-[Step 1: Create the demo app in Android Studio 15](#_Toc238378644)
+[Step 1: Create the demo app in Android Studio](#step-1-create-the-demo-app-in-android-studio)
 
-[Step 2: Generating the executable package .apk 16](#_Toc238378645)
+[Step 2: Generating the executable package .apk](#step-2-generating-the-executable-package-apk)
 
-[Step 3: Decompile with JADX and discover credentials 16](#_Toc238378646)
+[Step 3: Decompile with JADX and discover credentials](#step-3-decompile-with-jadx-and-discover-credentials)
 
-[Conclusion: Why is M1: Improper Credential Usage at the top of the OWASP Mobile Top 10? 17](#_Toc238378647)
+[Conclusion: Why is M1: Improper Credential Usage at the top of the OWASP Mobile Top 10?](#conclusion-why-is-m1-improper-credential-usage-at-the-top-of-the-owasp-mobile-top-10)
 
-[Chapter 3: API and Network Communications Risks 19](#_Toc238378648)
+[Chapter 3: API and Network Communications Risks](#chapter-3-api-and-network-communications-risks)
 
-[3.1 Network Traffic Interception: Man-in-the-Middle (MitM) Attacks 19](#_Toc238378649)
+[3.1 Network Traffic Interception: Man-in-the-Middle (MitM) Attacks](#31-network-traffic-interception-man-in-the-middle-mitm-attacks)
 
-[3.2 Mobile API-Specific Vulnerabilities 19](#_Toc238378650)
+[3.2 Mobile API-Specific Vulnerabilities](#32-mobile-api-specific-vulnerabilities)
 
-[3.3 Third-Party SDKs 20](#_Toc238378651)
+[3.3 Third-Party SDKs](#33-third-party-sdks)
 
-[3.4 Defensive Controls: Securing Communications and APIs 20](#_Toc238378652)
+[3.4 Defensive Controls: Securing Communications and APIs](#34-defensive-controls-securing-communications-and-apis)
 
-[DEMO: Dynamic Analysis and Authentication Bypass Using Frida (Dynamic Method Hooking) 22](#_Toc238378653)
+[DEMO: Dynamic Analysis and Authentication Bypass Using Frida (Dynamic Method Hooking)](#demo-dynamic-analysis-and-authentication-bypass-using-frida-dynamic-method-hooking)
 
-[Step 1: Preparing the Work Environment and Resetting the Processes and Starting the Frida Server on the Mobile Device 22](#_Toc238378654)
+[Step 1: Preparing the Work Environment and Resetting the Processes and Starting the Frida Server on the Mobile Device](#step-1-preparing-the-work-environment-and-resetting-the-processes-and-starting-the-frida-server-on-the-mobile-device)
 
-[Step 2: Creating the Bypass Script (bypass.js) 22](#_Toc238378655)
+[Step 2: Creating the Bypass Script (bypass.js)](#step-2-creating-the-bypass-script-bypassjs)
 
-[Step 3: Identifying the PID and Injecting the Script 23](#_Toc238378656)
+[Step 3: Identifying the PID and Injecting the Script](#step-3-identifying-the-pid-and-injecting-the-script)
 
-[Step 4: Attack Result and Bypass Authentication 24](#_Toc238378657)
+[Step 4: Attack Result and Bypass Authentication](#step-4-attack-result-and-bypass-authentication)
 
-[Conclusion: Why are RASP (Runtime Application Self-Protection) measures critical? 24](#_Toc238378658)
+[Conclusion: Why are RASP (Runtime Application Self-Protection) measures critical?](#conclusion-why-are-rasp-runtime-application-self-protection-measures-critical)
 
-[Chapter 4: Essential Security Measures and Mobile Application Protection 25](#_Toc238378659)
+[Chapter 4: Essential Security Measures and Mobile Application Protection](#chapter-4-essential-security-measures-and-mobile-application-protection)
 
-[4.1 Standardul OWASP MASVS (Mobile Application Security Verification Standard) 25](#_Toc238378660)
+[4.1 Standardul OWASP MASVS (Mobile Application Security Verification Standard)](#41-standardul-owasp-masvs-mobile-application-security-verification-standard)
 
-[4.2 Code Obfuscation and Binary Protection (Anti-JADX) 25](#_Toc238378661)
+[4.2 Code Obfuscation and Binary Protection (Anti-JADX)](#42-code-obfuscation-and-binary-protection-anti-jadx)
 
-[4.3 Runtime Application Self-Protection (RASP) 26](#_Toc238378662)
+[4.3 Runtime Application Self-Protection (RASP)](#43-runtime-application-self-protection-rasp)
 
-[4.4 Biometric Authentication and Secure Storage of Secrets 26](#_Toc238378663)
+[4.4 Biometric Authentication and Secure Storage of Secrets](#44-biometric-authentication-and-secure-storage-of-secrets)
 
-[4.5 Risks of Downloading Apps from Unofficial Sources (Sideloading) 27](#_Toc238378664)
+[4.5 Risks of Downloading Apps from Unofficial Sources (Sideloading)](#45-risks-of-downloading-apps-from-unofficial-sources-sideloading)
 
-[1. Modified Applications / Repackaged Malware (Droppers) 27](#_Toc238378665)
+[1. Modified Applications / Repackaged Malware (Droppers)](#1-modified-applications--repackaged-malware-droppers)
 
-[2. Banker Trojans and Overlay Attacks 27](#_Toc238378666)
+[2. Banker Trojans and Overlay Attacks](#2-banker-trojans-and-overlay-attacks)
 
-[3. Spyware and Infostealers 27](#_Toc238378667)
+[3. Spyware and Infostealers](#3-spyware-and-infostealers)
 
-[4. Ransomware Mobil 28](#_Toc238378668)
+[4. Ransomware Mobil](#4-ransomware-mobil)
 
-[5. Android Accessibility Services Exploitation 28](#_Toc238378669)
+[5. Android Accessibility Services Exploitation](#5-android-accessibility-services-exploitation)
 
-[Final Conclusions and Personal Contributions 28](#_Toc238378670)
+[Final Conclusions and Personal Contributions](#final-conclusions-and-personal-contributions)
 
-[Main Knowledge and Skills Acquired 29](#_Toc238378671)
+[Main Knowledge and Skills Acquired](#main-knowledge-and-skills-acquired)
 
-[Bibliography and Reference Resources 30](#_Toc238378672)
+[Bibliography and Reference Resources](#bibliography-and-reference-resources)
 
 # Chapter 1: Introduction
 

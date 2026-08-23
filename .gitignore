@@ -8,3 +8,6 @@
 
 # Ignore VS Code local workspace settings
 .vscode/
+
+# Ignore backup directory
+backup/
