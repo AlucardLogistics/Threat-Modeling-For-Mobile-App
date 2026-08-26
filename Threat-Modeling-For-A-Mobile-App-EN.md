@@ -1,91 +1,53 @@
 # Threat modeling for a mobile app
-
 ### Cyber Security Project
 
-#### By Dragos S.
+GitHub: [Dragos S, AlucardLogistics](https://github.com/AlucardLogistics)
 
 
-[Chapter 1: Introduction](#chapter-1-introduction)
+### Table of Contents
 
-[1.1 Brief history of the evolution of mobile applications](#11-brief-history-of-the-evolution-of-mobile-applications)
-
-[1.2 Impact of Evolution: Opportunities and Opportunities for Attack (Cyber Security)](#12-impact-of-evolution-opportunities-and-opportunities-for-attack-cyber-security)
-
-[1.3 Frame of Reference: Emergence of the OWASP Top 10 Mobile](#13-frame-of-reference-emergence-of-the-owasp-top-10-mobile)
-
-[1.4 Case Study: Model Application (Revolut)](#14-case-study-model-application-revolut)
-
-[1.5 Comparativ: Web Application (Site Revolut) vs. Mobile Application (Android / iOS)](#15-comparativ-web-application-site-revolut-vs-mobile-application-android--ios)
-
-[Chapter 2: Analysis of Collected Data and Device-Level Risks](#chapter-2-analysis-of-collected-data-and-device-level-risks)
-
-[2.1 Classification of Collected and Processed Data](#21-classification-of-collected-and-processed-data)
-
-[2.2 Threat Scenarios: Lost, Stolen, or Compromised Device](#22-threat-scenarios-lost-stolen-or-compromised-device)
-
-[2.3 Risk Matrix (Device-Level STRIDE)](#23-risk-matrix-device-level-stride)
-
-[2.4 Defensive Controls](#24-defensive-controls)
-
-[DEMO: Practical Case Study — Reverse Engineering and Exploitation of OWASP M1 (Improper Credential Usage)](#demo-practical-case-study--reverse-engineering-and-exploitation-of-owasp-m1-improper-credential-usage)
-
-[Step 1: Create the demo app in Android Studio](#step-1-create-the-demo-app-in-android-studio)
-
-[Step 2: Generating the executable package .apk](#step-2-generating-the-executable-package-apk)
-
-[Step 3: Decompile with JADX and discover credentials](#step-3-decompile-with-jadx-and-discover-credentials)
-
-[Conclusion: Why is M1: Improper Credential Usage at the top of the OWASP Mobile Top 10?](#conclusion-why-is-m1-improper-credential-usage-at-the-top-of-the-owasp-mobile-top-10)
-
-[Chapter 3: API and Network Communications Risks](#chapter-3-api-and-network-communications-risks)
-
-[3.1 Network Traffic Interception: Man-in-the-Middle (MitM) Attacks](#31-network-traffic-interception-man-in-the-middle-mitm-attacks)
-
-[3.2 Mobile API-Specific Vulnerabilities](#32-mobile-api-specific-vulnerabilities)
-
-[3.3 Third-Party SDKs](#33-third-party-sdks)
-
-[3.4 Defensive Controls: Securing Communications and APIs](#34-defensive-controls-securing-communications-and-apis)
-
-[DEMO: Dynamic Analysis and Authentication Bypass Using Frida (Dynamic Method Hooking)](#demo-dynamic-analysis-and-authentication-bypass-using-frida-dynamic-method-hooking)
-
-[Step 1: Preparing the Work Environment and Resetting the Processes and Starting the Frida Server on the Mobile Device](#step-1-preparing-the-work-environment-and-resetting-the-processes-and-starting-the-frida-server-on-the-mobile-device)
-
-[Step 2: Creating the Bypass Script (bypass.js)](#step-2-creating-the-bypass-script-bypassjs)
-
-[Step 3: Identifying the PID and Injecting the Script](#step-3-identifying-the-pid-and-injecting-the-script)
-
-[Step 4: Attack Result and Bypass Authentication](#step-4-attack-result-and-bypass-authentication)
-
-[Conclusion: Why are RASP (Runtime Application Self-Protection) measures critical?](#conclusion-why-are-rasp-runtime-application-self-protection-measures-critical)
-
-[Chapter 4: Essential Security Measures and Mobile Application Protection](#chapter-4-essential-security-measures-and-mobile-application-protection)
-
-[4.1 Standardul OWASP MASVS (Mobile Application Security Verification Standard)](#41-standardul-owasp-masvs-mobile-application-security-verification-standard)
-
-[4.2 Code Obfuscation and Binary Protection (Anti-JADX)](#42-code-obfuscation-and-binary-protection-anti-jadx)
-
-[4.3 Runtime Application Self-Protection (RASP)](#43-runtime-application-self-protection-rasp)
-
-[4.4 Biometric Authentication and Secure Storage of Secrets](#44-biometric-authentication-and-secure-storage-of-secrets)
-
-[4.5 Risks of Downloading Apps from Unofficial Sources (Sideloading)](#45-risks-of-downloading-apps-from-unofficial-sources-sideloading)
-
-[1. Modified Applications / Repackaged Malware (Droppers)](#1-modified-applications--repackaged-malware-droppers)
-
-[2. Banker Trojans and Overlay Attacks](#2-banker-trojans-and-overlay-attacks)
-
-[3. Spyware and Infostealers](#3-spyware-and-infostealers)
-
-[4. Ransomware Mobil](#4-ransomware-mobil)
-
-[5. Android Accessibility Services Exploitation](#5-android-accessibility-services-exploitation)
-
-[Final Conclusions and Personal Contributions](#final-conclusions-and-personal-contributions)
-
-[Main Knowledge and Skills Acquired](#main-knowledge-and-skills-acquired)
-
-[Bibliography and Reference Resources](#bibliography-and-reference-resources)
+* [Chapter 1: Introduction](#chapter-1-introduction)
+  * [1.1 Brief History of the Evolution of Mobile Applications](#11-brief-history-of-the-evolution-of-mobile-applications)
+  * [1.2 Impact of Evolution: Opportunities and Attack Vectors](#12-impact-of-evolution-opportunities-and-opportunities-for-attack-cyber-security)
+  * [1.3 Frame of Reference: Emergence of the OWASP Top 10 Mobile](#13-frame-of-reference-emergence-of-the-owasp-top-10-mobile)
+  * [1.4 Case Study: Model Application (Revolut)](#14-case-study-model-application-revolut)
+  * [1.5 Comparative: Web Application vs. Mobile Application (Android / iOS)](#15-comparativ-web-application-site-revolut-vs-mobile-application-android--ios)
+* [Chapter 2: Analysis of Collected Data and Device-Level Risks](#chapter-2-analysis-of-collected-data-and-device-level-risks)
+  * [2.1 System Architecture and Data Flow Diagram (DFD with Trust Boundaries)](#21-system-architecture-and-data-flow-diagram-dfd-with-trust-boundaries)
+  * [2.2 Classification of Collected and Processed Data](#22-classification-of-collected-and-processed-data)
+  * [2.3 Threat Scenarios: Lost, Stolen, or Compromised Device](#23-threat-scenarios-lost-stolen-or-compromised-device)
+  * [2.4 Risk Matrix (Device-Level STRIDE)](#24-risk-matrix-device-level-stride)
+    * [Trust Boundaries](#trust-boundaries)
+  * [DEMO 1: Reverse Engineering and Exploitation of OWASP M1](#demo-practical-case-study--reverse-engineering-and-exploitation-of-owasp-m1-improper-credential-usage)
+    * [Step 1: Create the Demo App in Android Studio](#step-1-create-the-demo-app-in-android-studio)
+    * [Step 2: Generating the Executable Package (.apk)](#step-2-generating-the-executable-package-apk)
+    * [Step 3: Decompile with JADX and Discover Credentials](#step-3-decompile-with-jadx-and-discover-credentials)
+    * [Conclusion: OWASP Mobile M1 Top Placement](#conclusion-why-is-improper-credential-usage-at-the-top-of-the-owasp-mobile-top-10)
+* [Chapter 3: API and Network Communications Risks](#chapter-3-api-and-network-communications-risks)
+  * [3.1 Network Traffic Interception: Man-in-the-Middle (MitM) Attacks](#31-network-traffic-interception-man-in-the-middle-mitm-attacks)
+  * [3.2 Mobile API-Specific Vulnerabilities](#32-mobile-api-specific-vulnerabilities)
+  * [3.3 Third-Party SDKs](#33-third-party-sdks)
+  * [3.4 Defensive Controls: Securing Communications and APIs](#34-defensive-controls-securing-communications-and-apis)
+  * [DEMO 2: Dynamic Analysis and Login Bypass Using Frida](#demo-dynamic-analysis-and-bypass-of-login-screen-using-frida-dynamic-method-hooking)
+    * [Step 1: Preparing Work Environment and Starting Frida Server](#step-1-preparing-the-work-environment-and-resetting-the-processes-and-starting-the-frida-server-on-the-mobile-device)
+    * [Step 2: Creating the Bypass Script (bypass.js)](#step-2-creating-the-bypass-script-bypassjs)
+    * [Step 3: Identifying the PID and Injecting the Script](#step-3-identifying-the-pid-and-injecting-the-script)
+    * [Step 4: Attack Result and Bypassing the Login Page](#step-4-attack-result-and-bypass-the-login-page)
+    * [Conclusion: Critical Role of RASP Defensive Measures](#conclusion-why-are-rasp-runtime-application-self-protection-measures-critical)
+* [Chapter 4: Essential Security Measures and Mobile Application Protection](#chapter-4-essential-security-measures-and-mobile-application-protection)
+  * [4.1 OWASP MASVS Standard](#41-standardul-owasp-masvs-mobile-application-security-verification-standard)
+  * [4.2 Code Obfuscation and Binary Protection (Anti-JADX)](#42-code-obfuscation-and-binary-protection-anti-jadx)
+  * [4.3 Runtime Application Self-Protection (RASP)](#43-runtime-application-self-protection-rasp)
+  * [4.4 Biometric Authentication and Secure Storage of Secrets](#44-biometric-authentication-and-secure-storage-of-secrets)
+  * [4.5 Risks of Downloading Apps from Unofficial Sources (Sideloading)](#45-risks-of-downloading-apps-from-unofficial-sources-sideloading)
+    * [1. Modified Applications / Repackaged Malware (Droppers)](#1-modified-applications--repackaged-malware-droppers)
+    * [2. Banker Trojans and Overlay Attacks](#2-banker-trojans-and-overlay-attacks)
+    * [3. Spyware and Infostealers](#3-spyware-and-infostealers)
+    * [4. Mobile Ransomware](#4-ransomware-mobil)
+    * [5. Android Accessibility Services Exploitation](#5-android-accessibility-services-exploitation)
+* [Final Conclusions and Personal Contributions](#final-conclusions-and-personal-contributions)
+* [Main Knowledge and Skills Acquired](#main-knowledge-and-skills-acquired)
+* [Bibliography and Reference Resources](#bibliography-and-reference-resources)
 
 # Chapter 1: Introduction
 
@@ -132,7 +94,7 @@ For this threat modeling project, the application chosen as the model is **Revol
 
 A common mistake in cybersecurity is assuming that a mobile app is just a website packed into a smaller screen. In reality, the architecture, the running environment and the attack vectors are fundamentally different.
 
-![/mobile-vs-browser-server](resurse/mobile-vs-browser-server.png)
+![](resurse/mobile-vs-browser-server.png)
 
 **Does a mobile app have more or fewer threats than a web app?**
 
@@ -190,11 +152,31 @@ Within mobile analysis, there are specific differences between the two major ope
 
 This chapter examines in detail the information footprint of the Revolut app on the mobile device and analyzes the threats to which this data is exposed in the event of loss, theft or compromise of the operating system.
 
-## 2.1 Classification of Collected and Processed Data
+## 2.1 System Architecture and Data Flow Diagram (DFD with Trust Boundaries)
+
+In order to effectively identify the attack surface and the critical components of the mobile ecosystem (e.g. Revolut), it is necessary to map all the components that interact with the user's data and delineate the trust **boundaries**.
+
+![](resurse/DFD-horizontal.png)
+
+* **Description of Data Flows and Security Perimeters**
+* **Flow 1 — Data Input (PIN, Biometrics):** Retrieving data from the user/interface to local storage and processing (goes through *Trust Boundary 1: User/UI).*
+* **Risk:** Overlay attacks, keylogging or interception of locked screen data.
+* **Stream 2 — Interaction with Process Memory:** Transition of instructions from the application runtime (Android JVM / iOS Runtime) to RAM memory (passes through *Trust Boundary 2: Device/OS).*
+* **Risk:** Dynamic memory inspection, real-time function interception via Frida Hooking or unauthorized debugging (Ptrace).
+* **Stream 3 — API requests (https/tls):** Transmitting requests from the mobile app to the central infrastructure (passes through *Trust Boundary 3: Network*).
+* **Risk:** Interception of traffic by Man-in-the-Middle (MitM) attacks if SSL Pinning or the use of interception proxies (Burp Suite) are not applied.
+* **Flow 4 — Backend Processing & Core Banking:** Data exchange between API Gateway, central servers, and databases/banking services (PSD2).
+* **Risk:** API-level vulnerabilities (e.g., BOLA/IDOR, manipulation of session parameters, or unauthorized queries).
+* **Trust Boundaries**
+* **Trust Boundary 1 (User/UI):** Separates the user's untrustworthy domain (touch input and potential malware installed on the device) from the phone's local storage modules.
+* **Trust Boundary 2 (Device/OS):** Separates the mobile application layer (standard sandbox) from the operating system and RAM of the process. Violation of this limit occurs on Root/Jailbreak phones.
+* **Trust Boundary 3 (Network):** Delineates the local mobile environment (which can be connected to unsecured public Wi-Fi networks) from the secure cloud area of the Revolut infrastructure (Core Banking & API Gateway).
+
+## 2.2 Classification of Collected and Processed Data
 
 A modern financial technology (FinTech) application functions as a central data node. To comply with compliance requirements (KYC/AML) and to provide personalized services, Revolut collects several categories of data, categorized by sensitivity level:
 
-![mobile-vs-browser-server](resurse/Date-Colectare-Revolut.png)
+![](resurse/Date-Colectare-Revolut.png)
 
 **A. Identification Data and KYC (Know Your Customer) — *Risk Level: Critical***
 
@@ -220,7 +202,7 @@ A modern financial technology (FinTech) application functions as a central data 
 * **Location data:** Precise GPS coordinates (used to protect against fraud on physical card payments).
 * **Connection graph:** Your phone's contact list (for identifying other Revolut users and fast transfers).
 
-## 2.2 Threat Scenarios: Lost, Stolen, or Compromised Device
+## 2.3 Threat Scenarios: Lost, Stolen, or Compromised Device
 
 According to the mobile security model, the physical device is considered an **untrusted environment**. Threats are divided into two major categories: attacks with physical access and attacks via the compromised operating system.
 
@@ -254,30 +236,23 @@ In this scenario, the phone remains in the user's possession, but the security o
 3. **Keylogging and Screen Scraping:**
    * **Mechanism:** The malware uses extensive system permissions to record the coordinates of touches on the screen or take continuous screenshots while using the virtual keyboard.
 
-## 2.3 Risk Matrix (Device-Level STRIDE)
+## 2.4 Risk Matrix (Device-Level STRIDE)
 
 To synthesize threats at the mobile device level, we apply the relevant components of the **STRIDE methodology**  (per-client analysis phase):
 
-| **Category STRIDE** | **Specific Threat on Mobile** | **Targeted component** | **Risc Level** |
-| --- | --- | --- | --- |
-| **Spoofing** | Using an emulator or modified device to simulate the user's legitimate device. | Device registration token. | High |
-| **Tampering** (Alternator) | Change the instructions of the in-memory binary to bypass security screens. | The code compiled in RAM (Logic Layer). | Chile |
-| **Repudiation** | Making a transaction from a compromised device and subsequently disputing it by the user. | Local Audit Logs. | Environment |
-| **Information Disclosure** (Scurgere de date) | Extracting keys from SharedPreferences or reading sensitive data from the cache/clipboard. | Local storage (SQLite / Cache). | Chile |
-| **Elevation of Privilege** (Escaladare de privilegii) | Exploiting OS kernel vulnerabilities to leave the application sandbox. | Operating system sandbox (iOS/Android). | Chile |
+| **Asset** | **Category STRIDE** | **Threat description** | **Impact (Risc)** | **Trust Boundary Breach** | **Control Defensiv (Remediation)** | **Risc Rezidual** |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Device Identifier** | **Spoofing** | Using a cloned emulator/device to impersonate the customer's legitimate device. | **High** | Da (Device Perimeter) | Mandatory Multi-Factor Authentication (MFA) and Advanced Device Fingerprinting. | **Low** |
+| **Code Compiled in RAM** | **Tampering** | Change the instructions of the in-memory binary (e.g. bypass UI with Frida). | **Chile** | Da (OS Sandbox) | Implementation of RASP (Root & Hooking Detection) protections. | **Environment** |
+| **Local Audit Logs** | **Repudiation** | Making a transaction from a compromised device and subsequently disputing it. | **Environment** | No | Cryptographic transaction signing (SCA) with hardware keys. | **Low** |
+| **Local Storage (SQLite/Cache)** | **Information Disclosure** | Extracting keys from *SharedPreferences* or reading data from the unencrypted cache. | **Chile** | Da (Storage Layer) | Save keys in *Android KeyStore* (Hardware-backed) and UI Hardening (clear cache). | **Low** |
+| **Process OS (iOS/Android)** | **Elevation of Privilege** | Exploiting OS kernel vulnerabilities to leave the application sandbox. | **Chile** | Da (OS Kernel) | Applying FLAG\_SECURE and limiting operation on older versions of OS. | **Environment** |
 
-## 2.4 Defensive Controls
+Trust Boundaries:
 
-To neutralize the risks identified at the device level, enterprise-grade banking applications implement a set of defensive controls:
-
-1. **Using Hardware Crypto Storage:**
-   * Saving encryption keys in **Android KeyStore** or **iOS Keychain** (hardware-supported by *Secure Enclave* / *TEE - Trusted Execution Environment*). The keys do not leave the dedicated hardware chip.
-2. **Implementation of RASP (Runtime Application Self-Protection) protections:**
-   * **Root/Jailbreak Detection:** Check for the presence of su binaries (/system/app/Superuser.apk, Cydia) and stop the application from running if the system is compromised.
-   * **Frida/Hooking Detection:** Inspection of the memory space of the process for the detection of injected foreign libraries (frida-agent.so).
-3. **Secure Interface and Memory (UI Hardening):**
-   * Applying the FLAG\_SECURE flag on Android to block taking screenshots and screen videos.
-   * Zeroing of variables containing sensitive data (e.g. PIN, CVV) immediately after use.
+* **Device Perimeter:** The boundary between the user and the phone. A breach here means that the attacker has physically or virtually gained access to the screen level.
+* **OS Sandbox:** The limit imposed by the operating system between applications. Breach (via Root/Jailbreak) allows a malicious process to read the memory of the banking application.
+* **Storage Layer:** The limit of data protection at rest. The breach allows the extraction of persistent files directly from the disk.
 
 # DEMO: Practical Case Study — Reverse Engineering and Exploitation of OWASP M1 (Improper Credential Usage)
 
@@ -299,19 +274,47 @@ In the Pop!\_OS environment, the compiled binary file was located in the project
 
 ## Step 3: Decompile with JADX and discover credentials
 
-Using the JADX-GUI **reverse engineering utility** installed on Pop!\_OS Linux, the app-debug.apk binary underwent a decompilation process to reconstruct the Java code from the .dex bytecode files.
+Using the JADX-GUI **reverse engineering utility**  installed on Pop!\_OS Linux, the app-debug.apk binary underwent a decompilation process to reconstruct the Java code from the .dex bytecode files.
 
 An attacker doesn't have to read thousands of lines of code by hand. By using the Global Search function (*Global Search* / Ctrl+Shift+F) in JADX and querying key terms such as password, user, or admin, the hardencoded credentials were instantly identified in the LoginActivity class.
 
 ![](resurse/decompilare-gasire-parola-user.png)
 
-## Conclusion: Why is M1: Improper Credential Usage at the top of the OWASP Mobile Top 10?
+## Conclusion: Why is Improper Credential Usage at the top of the OWASP Mobile Top 10?
 
-Identifying hard-coded credentials and misusing authentication occupies the **M1 position** in the OWASP Mobile ranking for several critical reasons:
+Identifying hard-coded credentials and misusing authentication occupies the **M1 position**  in the OWASP Mobile ranking for several critical reasons:
 
 1. **The binary is always on the attacker's device:** Unlike a web application where the backend code remains protected on the server, the mobile package (.apk/.ipa) is saved entirely on local storage. With no **obfuscation** measures (e.g., ProGuard/R8/DexGuard) or cryptographic security in hardware, the code is an "open book."
 2. **Devastating Impact:** If the credentials stored in the code are general API keys, database passwords, or encryption secrets used by all users, compromising a single APK exposes the entire app infrastructure and its backend.
-3. **Minimal Exploitation Effort:** As demonstrated in this demo, identifying the vulnerability doesn't require advanced hacking knowledge or expensive tools — basic open-source utilities like JADX and a few seconds of analysis are enough.
+3. **Minimal Exploitation Effort:** As demonstrated in this demo, identifying the vulnerability doesn't require advanced hacking knowledge or expensive basic open-source utility tools like JADX, and a few seconds of analysis are enough.
+
+**Benchmarking: Source Code vs. JADX Decompilation and Remediation (Before vs. After)**
+
+The analysis performed on the MostSecureApp application shows exactly how instructions written in **Kotlin (Jetpack Compose)** are transposed into the .apk file and subsequently exposed in the **JADX-GUI decompiler**.
+
+**1. Vulnerable version (source code vs. decompiled code)**
+
+* **In Android Studio (Kotlin Source Code — LoginActivity.kt):** The app uses a local validation block on the *Submit* (onClick) button, directly comparing the username and password variables with the text values:
+
+![](resurse/remediere-jadx-before.png)
+
+* **In JADX-GUI (Decompiled Code LoginActivityKt.java):** Although Kotlin compiles the code using Lambdas and Intrinsics.areEqual checks, the check values **remain completely unencrypted in memory** and are instantly identified:
+
+![](resurse/remediere-jadx-decompilat-before.png)
+
+**2. Fixed version (AFTER — architectural fix)**
+
+To completely eliminate the vulnerability, the verification logic is extracted from the graphical user interface (UI) and moved to the server.
+
+* **In Android Studio (Secure Kotlin Code — LoginActivity.kt):** The source code no longer stores the "Dragos" and "4321Inad" values. It sends a network authentication request:
+
+![](resurse/remediere-jadx-after.png)
+
+* **Even if the attacker finds the error message or password variable, there is no hardencoded value left in all the decompiled code. All it can see is that the app sends the data entered by the user to an external server for validation. Credentials can no longer be stolen from binary .apk.3. Practical conclusion**
+
+The experiment demonstrates the fundamental rule of mobile security: **The mobile client is an *untrusted client***.
+
+All executable files .apk can be read by decompiling. Any if security check (user == "..." &&pass == "...") written locally on the phone provides an illusion of security and exposes the credentials of any user who uses analysis tools such as JADX.
 
 **Conclusion:** Authentication validation should NEVER take place exclusively on the client side, and secrets or credentials should NEVER be stored directly in the source code of the mobile application.
 
@@ -370,7 +373,7 @@ To counter these threats, Revolut apps implement advanced protections:
 3. **Strict Authorization Validation on the Backend:**
    * The server should never trust the data coming from the mobile app. Each request must validate session token rights directly against the database (preventing BOLA attacks).
 
-# DEMO: Dynamic Analysis and Authentication Bypass Using Frida (Dynamic Method Hooking)
+# DEMO: Dynamic Analysis and Bypass of Login Screen Using Frida (Dynamic Method Hooking)
 
 This second hands-on experiment exemplifies an advanced security technique: **dynamic analysis** and **process-level code** injection (Dynamic Instrumentation/Method Hooking) using the open-source **Frida framework**.
 
@@ -400,7 +403,7 @@ After identifying the corresponding PID for the application, the script bypass.j
 
 ![](resurse/injecting-bypass-into-test-app.png)
 
-## Step 4: Attack Result and Bypass Authentication
+## Step 4: Attack Result and Bypass the Login Page
 
 Once the script was successfully injected, a simple tap on the phone screen (anywhere on the screen) was enough. Frida intercepted the touch event, executed the direct routing sequence, and instantly opened the MainActivity screen, completely ignoring the username and password validation.
 
@@ -408,11 +411,14 @@ Once the script was successfully injected, a simple tap on the phone screen (any
 
 This demo demonstrates that an attacker with a rooted phone can manipulate the execution flow of an Android app in real-time.
 
-To stop Frida-type attacks in financial applications (such as Revolut), advanced RASP-type defensive measures are required:
+To stop Frida-type attacks in financial applications, advanced RASP-like defensive measures are required:
 
 * **Root & Debugger Detection:** Block application execution if a debug environment or Root binary is detected.
 * **Anti-Frida Checks:** Scan local ports (e.g. port 27042) and process memory to detect the presence of the frida-server utility.
 * **Code Integrity Protection:** Real-time verification if the code of classes in memory has been changed by hooking.
+* **What the attack accomplished:** The Frida script only changed the local state in the process memory on the phone, forcing the Android operating system to display the MainActivity screen. It's a client/UI level bypass.
+* **Attack limit:** This bypass **does not compromise the account on the backend**. Without providing valid credentials on the Login screen, the central server does not issue an authenticated session token (e.g. OAuth/JWT token). As a result, any subsequent attempts in MainActivity to perform operations that require data from the server (API queries, transactions) will fail with an HTTP 401 Unauthorized error code.
+* **Why is it still a security risk?** If the app keeps sensitive data cached locally on the device, or if the developers have made a **BOLA/IDOR architecture mistake**  (they don't check the session token on the backend for every action in MainActivity), the attacker could access sensitive information from the interface.
 
 # Chapter 4: Essential Security Measures and Mobile Application Protection
 
@@ -487,7 +493,7 @@ Unlike official stores (**Google Play Store** and **Apple App Store**), which us
 
 **Defensive Measures and Recommendations for Users**
 
-1. **Disable Install from Unknown Sources:** Keep the *"Install from unknown sources"*  option disabled in Android settings.
+1. **Disable Install from Unknown Sources:** Keep the *"Install from unknown sources"* option disabled in Android settings.
 2. **Exclusive Use of Official Stores:** Download apps only from the Google Play Store or Apple App Store.
 3. **Checking Permissions Requests:** A simple flashlight app or game should never request access to SMS, Accessibility Services, or Contacts.
 4. **Google Play Protect Protection:** Keep the built-in periodic scan module active on your Android system.
@@ -516,6 +522,6 @@ This project provided a technical and practical perspective on the mobile applic
 6. **Skylined & JADX Contributors** (2024). *JADX - Java decompilation tools for Android DEX and APK files*. Repository GitHub: <https://github.com/skylot/jadx>
 7. **Ravat, O. & Frida Developers** (2025). *Frida: Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers*. Sursă online: <https://frida.re/docs/home/>
 8. **Elenkov, N.** (2014). *Android Security Internals: An In-Depth Guide to Android's Security Architecture*. No Starch Press. ISBN: 978-1593275815.
-9. **Anati, I., Gueron, S., Johnson, S., & Scarlata, V.** (2013). *Innovative Technology for CPU Based Attestation and Security (TEE & Hardware Security Units)*. Intel Corporation.
+9. **Thoviti, S. (2024). *Threat Modeling using LLM: Asset Threat Model Table and Trust Boundaries Methodology*. Sursă online:** [**https://sidthoviti.com/threat-modeling-using-llm/**](https://sidthoviti.com/threat-modeling-using-llm/)
 10. **European Union Agency for Cybersecurity (ENISA)** (2023). *Smartphone Security for Citizens: Guidelines and Risk Assessment*. ENISA Publications. Sursă online: <https://www.enisa.europa.eu/>
 11. **Stuttard, D., & Pinto, M.** (2011). *The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws* (2nd Edition - Mobile Network & API Security Chapters). Wiley. ISBN: 978-1118026472.
