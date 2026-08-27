@@ -53,14 +53,25 @@ Risk modeling applied specifically to Android component architectures:
 ## 🗂️ Repository Structure
 
 ```text
-.
 ├── docs/
-│   ├── Threat_Model_Android_EN.md    # Full report (English)
-│   └── Threat_Model_Android_RO.md    # Full report (Romanian)
+│   ├── Threat_Model_Android_EN.md            # Full report (English)
+│   └── Threat_Model_Android_RO.md            # Full report (Romanian)
 ├── scripts/
-│   └── bypass.js                     # Frida dynamic hooking script
+│   └── bypass.js                             # Frida dynamic hooking script
 ├── resurse/
-│   ├── dfd_diagram.png               # Data Flow Diagram & Trust Boundaries
-│   └── screenshots/                  # JADX & Frida PoC evidence
+│   ├── DFD-horizontal.png                    # System Architecture & DFD with Trust Boundaries
+│   ├── Date-Colectare-Revolut.png            # Classification of collected data (Revolut model)
+│   ├── Dispositiv-Pierdut-Furat.png          # Threat scenario: Lost or stolen device
+│   ├── OS-Compromis.png                      # Threat scenario: Compromised operating system
+│   ├── mobile-vs-browser-server.png          # Architectural comparison: Mobile vs. Web Application
+│   ├── aplicatia-in-android.png              # Android Studio demo application setup
+│   ├── apk-generat.png                       # Executable package (.apk) generation
+│   ├── decompilare-gasire-parola-user.png    # JADX decompilation & hardcoded credential discovery (M1)
+│   ├── remediere-jadx-before.png             # Vulnerable code structure prior to remediation
+│   ├── remediere-jadx-decompilat-before.png  # Decompiled byteclasses showing exposed secrets
+│   ├── remediere-jadx-after.png              # Remediated code implementation
+│   ├── frida-server-start-setup.png          # Environment preparation & Frida server initialization
+│   ├── bypass-script.png                     # Frida dynamic hooking logic (bypass.js)
+│   └── injecting-bypass-into-test-app.png    # Dynamic script injection & login bypass PoC
 └── README.md
 ```
