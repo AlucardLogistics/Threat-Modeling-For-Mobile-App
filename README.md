@@ -59,7 +59,7 @@ Risk modeling applied specifically to Android component architectures:
 │   └── Threat_Model_Android_RO.md    # Full report (Romanian)
 ├── scripts/
 │   └── bypass.js                     # Frida dynamic hooking script
-├── resources/
+├── resurse/
 │   ├── dfd_diagram.png               # Data Flow Diagram & Trust Boundaries
 │   └── screenshots/                  # JADX & Frida PoC evidence
 └── README.md
