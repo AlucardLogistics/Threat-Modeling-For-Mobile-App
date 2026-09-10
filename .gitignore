@@ -3,6 +3,7 @@
 *.doc
 *.pdf
 *.tmp
+*.pptx
 
 # Ignore Mac system files if you are on a Mac
 .DS_Store

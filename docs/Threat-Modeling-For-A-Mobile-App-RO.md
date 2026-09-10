@@ -95,7 +95,7 @@ Pentru acest proiect de modelare a amenințărilor, aplicația aleasă ca model 
 
 O greșeală frecventă în securitatea cibernetică este presupunerea că o aplicație mobilă este doar un site web împachetat într-un ecran mai mic. În realitate, arhitectura, mediul de rulare și vectorii de atac sunt fundamental diferiți.
 
-![](resurse/mobile-vs-browser-server.png)
+![](../resurse/mobile-vs-browser-server.png)
 
 **Are o aplicație mobilă mai multe sau mai puține amenințări decât o aplicație Web?**
 
@@ -157,7 +157,7 @@ Acest capitol examinează în detaliu amprenta informațională a aplicației Re
 
 Pentru a identifica eficient suprafața de atac și componentele critice ale ecosistemului mobil (ex: Revolut), este necesară maparea tuturor componentelor care interacționează cu datele utilizatorului și delimitarea zonelor de încredere (**Trust Boundaries**).
 
-![](resurse/DFD-horizontal.png)
+![](../resurse/DFD-horizontal.png)
 
 * **Descrierea Fluxurilor de Date (Data Flows) și a Perimetrelor de Securitate**
 * **Fluxul 1 — Data Input (PIN, Biometrie):** Preluarea datelor de la utilizator/interfață către stocarea și procesarea locală (trece prin *Trust Boundary 1: User/UI*).
@@ -177,7 +177,7 @@ Pentru a identifica eficient suprafața de atac și componentele critice ale eco
 
 O aplicație de tehnologie financiară (FinTech) modernă funcționează ca un nod central de date. Pentru a respecta cerințele de conformitate (KYC/AML) și pentru a oferi servicii personalizate, Revolut colectează mai multe categorii de date, clasificate după nivelul de sensibilitate:
 
-![](resurse/Date-Colectare-Revolut.png)
+![](../resurse/Date-Colectare-Revolut.png)
 
 **A. Date de Identificare și KYC (Know Your Customer) — *Nivel de Risc: Critic***
 
@@ -211,7 +211,7 @@ Conform modelului de securitate mobil, dispozitivul fizic este considerat un **m
 
 Atunci când un atacator obține acces fizic la telefon, obiectivele sale sunt ocolirea ecranoarelor de blocare și extragerea datelor din stocarea locală.
 
-![](resurse/Dispositiv-Pierdut-Furat.png)
+![](../resurse/Dispositiv-Pierdut-Furat.png)
 
 1. **Extragerea datelor din stocare necriptată (Insecure Data Storage):**
    * **Mecanism:** Dacă o aplicație salvează jetoane de sesiune sau date despre cont în fișiere de preferințe necriptate (SharedPreferences pe Android sau NSUserDefaults pe iOS) ori baze de date SQLite simple, atacatorul poate extrage fișierele conectând telefonul la un calculator via adb (Android Debug Bridge) sau prin utilitare de backup.
@@ -226,7 +226,7 @@ Atunci când un atacator obține acces fizic la telefon, obiectivele sale sunt o
 
 În acest scenariu, telefonul rămâne în posesia utilizatorului, dar securitatea OS-ului este anulată fie intenționat de utilizator (Root/Jailbreak), fie prin infectarea cu malware.
 
-![](resurse/OS-Compromis.png)
+![](../resurse/OS-Compromis.png)
 
 1. **Analiză dinamică și Runtime Hooking (ex: Frida, Xposed):**
    * **Mecanism:** Pe un dispozitiv cu privilegii de root sau jailbreak, izolare între aplicații (Sandboxing) dispare. Un atacator sau un modul malware poate injecta cod în procesul aplicației Revolut în timp ce aceasta rulează în RAM.
@@ -263,7 +263,7 @@ Această secțiune prezintă o demonstrație practică a modul în care binarul 
 
 A fost dezvoltată o aplicație Android simplă în mediul **Android Studio** pe sistemul de operare **Pop!\_OS Linux**. Aplicația simulează un ecran de autentificare (LoginActivity), unde validarea credențialelor se face direct pe partea de client prin compararea datelor introduse de utilizator cu două variabile de tip constantă (HARDCODED\_USER și HARDCODED\_PASS).
 
-![](resurse/aplicatia-in-android.png)
+![](../resurse/aplicatia-in-android.png)
 
 ## Pasul 2: Generarea pachetului executabil .apk
 
@@ -271,7 +271,7 @@ După scrierea codului, aplicația a fost compilată pentru a genera pachetul bi
 
 În mediul Pop!\_OS, fișierul binar compilat a fost localizat în directorul de build al proiectului: app/build/outputs/apk/debug/app-debug.apk
 
-![](resurse/apk-generat.png)
+![](../resurse/apk-generat.png)
 
 ## Pasul 3: Decompilarea cu JADX și descoperirea credențialelor
 
@@ -279,7 +279,7 @@ Folosind utilitarul de reverse engineering **JADX-GUI** instalat pe Pop!\_OS Lin
 
 Un atacator nu trebuie să citească mii de linii de cod de mână. Prin utilizarea funcției de căutare globală (*Global Search* / Ctrl+Shift+F) din JADX și interogarea unor termeni cheie precum password, user sau admin, credențialele hardcodate au fost identificate instantaneu în clasa LoginActivity.
 
-![](resurse/decompilare-gasire-parola-user.png)
+![](../resurse/decompilare-gasire-parola-user.png)
 
 ## Concluzie: De ce este Improper Credential Usagepe primul loc în OWASP Mobile Top 10?
 
@@ -297,11 +297,11 @@ Analiza realizată pe aplicația MostSecureApp arată modul exact în care instr
 
 * **În Android Studio (Codul Sursă Kotlin — LoginActivity.kt):** Aplicația folosește un bloc de validare locală pe butonul de *Submit* (onClick), comparând direct variabilele username și password cu valorile text:
 
-![](resurse/remediere-jadx-before.png)
+![](../resurse/remediere-jadx-before.png)
 
 * **În JADX-GUI (Codul Decompilat LoginActivityKt.java):** Deși Kotlin compilează codul folosind Lambdas și verificări de tip Intrinsics.areEqual, valorile de verificare **rămân complet necriptate în memorie**, fiind identificate instantaneu:
 
-![](resurse/remediere-jadx-decompilat-before.png)
+![](../resurse/remediere-jadx-decompilat-before.png)
 
 **2. Versiunea Remediată (AFTER — Remedierea Arhitecturală)**
 
@@ -309,7 +309,7 @@ Pentru a elimina complet vulnerabilitatea, logica de verificare este extrasă di
 
 * **În Android Studio (Cod Kotlin Securizat — LoginActivity.kt):** Codul sursă nu mai stochează valorile "Dragos" și "4321Inad". Acesta trimite o cerere de autentificare prin rețea:
 
-![](resurse/remediere-jadx-after.png)
+![](../resurse/remediere-jadx-after.png)
 
 * **Chiar dacă atacatorul găsește mesajul de eroare sau variabila password, în tot codul decompilat nu mai există nicio valoare hardcodată. Tot ce poate vedea este că aplicația trimite datele introduse de utilizator către un server extern pentru validare. Credențialele nu mai pot fi furate din binarul .apk.3. Concluzie Practică**
 
@@ -386,7 +386,7 @@ Pentru a garanta o stare curată de testare pe laptopul cu **Pop!\_OS Linux**, m
 
 Dupa care pe telefonul fizic (OnePlus 7 Pro cu drepturi de Root), a fost pornit în fundal serviciul frida-server localizat în /data/local/tmp/:
 
-![](resurse/frida-server-start-setup.png)
+![](../resurse/frida-server-start-setup.png)
 
 ## Pasul 2: Crearea Scriptului de Bypass (bypass.js)
 
@@ -394,7 +394,7 @@ Pentru a ocoli ecranul de autentificare fără a introduce credențiale, a fost 
 
 Scriptul folosește un mecanism modern bazat pe Jetpack (androidx.activity.ComponentActivity), făcând **hooking** pe metoda onUserInteraction(). La prima atingere a ecranului, scriptul creează dinamic un nou Intent către MainActivity, forțând aplicația să încarce interfața principală în mod automat:
 
-![](resurse/bypass-script.png)
+![](../resurse/bypass-script.png)
 
 ## Pasul 3: Identificarea PID-ului și Injectarea Scriptului
 
@@ -402,7 +402,7 @@ Aplicația MostSecureApp a fost deschisă pe ecranul OnePlus 7 Pro (afișând ec
 
 După identificarea PID-ului corespunzător aplicației, scriptul bypass.js a fost injectat direct în procesul activ din memorie:
 
-![](resurse/injecting-bypass-into-test-app.png)
+![](../resurse/injecting-bypass-into-test-app.png)
 
 ## Pasul 4: Rezultatul Atacului și Ocolirea Paginii de Login
 

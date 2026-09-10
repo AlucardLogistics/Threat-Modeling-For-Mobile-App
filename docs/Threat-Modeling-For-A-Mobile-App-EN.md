@@ -94,7 +94,7 @@ For this threat modeling project, the application chosen as the model is **Revol
 
 A common mistake in cybersecurity is assuming that a mobile app is just a website packed into a smaller screen. In reality, the architecture, the running environment and the attack vectors are fundamentally different.
 
-![](resurse/mobile-vs-browser-server.png)
+![](../resurse/mobile-vs-browser-server.png)
 
 **Does a mobile app have more or fewer threats than a web app?**
 
@@ -156,7 +156,7 @@ This chapter examines in detail the information footprint of the Revolut app on 
 
 In order to effectively identify the attack surface and the critical components of the mobile ecosystem (e.g. Revolut), it is necessary to map all the components that interact with the user's data and delineate the trust **boundaries**.
 
-![](resurse/DFD-horizontal.png)
+![](../resurse/DFD-horizontal.png)
 
 * **Description of Data Flows and Security Perimeters**
 * **Flow 1 — Data Input (PIN, Biometrics):** Retrieving data from the user/interface to local storage and processing (goes through *Trust Boundary 1: User/UI).*
@@ -176,7 +176,7 @@ In order to effectively identify the attack surface and the critical components 
 
 A modern financial technology (FinTech) application functions as a central data node. To comply with compliance requirements (KYC/AML) and to provide personalized services, Revolut collects several categories of data, categorized by sensitivity level:
 
-![](resurse/Date-Colectare-Revolut.png)
+![](../resurse/Date-Colectare-Revolut.png)
 
 **A. Identification Data and KYC (Know Your Customer) — *Risk Level: Critical***
 
@@ -210,7 +210,7 @@ According to the mobile security model, the physical device is considered an **u
 
 When an attacker gains physical access to the phone, their goals are to bypass lock screens and extract data from local storage.
 
-![](resurse/Dispositiv-Pierdut-Furat.png)
+![](../resurse/Dispositiv-Pierdut-Furat.png)
 
 1. **Data extraction from Insecure Data Storage:**
    * **Mechanism:** If an application saves session tokens or account data in unencrypted preference files (SharedPreferences on Android or NSUserDefaults on iOS) or simple SQLite databases, the attacker can extract the files by connecting the phone to a computer via adb (Android Debug Bridge) or through backup utilities.
@@ -225,7 +225,7 @@ When an attacker gains physical access to the phone, their goals are to bypass l
 
 In this scenario, the phone remains in the user's possession, but the security of the OS is overridden either intentionally by the user (Root/Jailbreak) or by malware infection.
 
-![](resurse/OS-Compromis.png)
+![](../resurse/OS-Compromis.png)
 
 1. **Dynamic Analysis and Runtime Hooking (e.g. Frida, Xposed):**
    * **Mechanism:** On a device with root or jailbreak privileges, inter-application isolation (Sandboxing) disappears. An attacker or malware can inject code into the Revolut app's process while it is running in RAM.
@@ -262,7 +262,7 @@ This section presents a practical demonstration of how the binary of an Android 
 
 A simple Android application was developed in the **Android Studio** environment on the Pop**!\_OS Linux operating system**. The application simulates an authentication screen (LoginActivity), where the validation of credentials is done directly on the client side by comparing the data entered by the user with two constant variables (HARDCODED\_USER and HARDCODED\_PASS).
 
-![](resurse/aplicatia-in-android.png)
+![](../resurse/aplicatia-in-android.png)
 
 ## Step 2: Generating the executable package .apk
 
@@ -270,7 +270,7 @@ After writing the code, the application was compiled to generate the executable 
 
 In the Pop!\_OS environment, the compiled binary file was located in the project's build directory: app/build/outputs/apk/debug/app-debug.apk
 
-![](resurse/apk-generat.png)
+![](../resurse/apk-generat.png)
 
 ## Step 3: Decompile with JADX and discover credentials
 
@@ -278,7 +278,7 @@ Using the JADX-GUI **reverse engineering utility**  installed on Pop!\_OS Linux,
 
 An attacker doesn't have to read thousands of lines of code by hand. By using the Global Search function (*Global Search* / Ctrl+Shift+F) in JADX and querying key terms such as password, user, or admin, the hardencoded credentials were instantly identified in the LoginActivity class.
 
-![](resurse/decompilare-gasire-parola-user.png)
+![](../resurse/decompilare-gasire-parola-user.png)
 
 ## Conclusion: Why is Improper Credential Usage at the top of the OWASP Mobile Top 10?
 
@@ -296,11 +296,11 @@ The analysis performed on the MostSecureApp application shows exactly how instru
 
 * **In Android Studio (Kotlin Source Code — LoginActivity.kt):** The app uses a local validation block on the *Submit* (onClick) button, directly comparing the username and password variables with the text values:
 
-![](resurse/remediere-jadx-before.png)
+![](../resurse/remediere-jadx-before.png)
 
 * **In JADX-GUI (Decompiled Code LoginActivityKt.java):** Although Kotlin compiles the code using Lambdas and Intrinsics.areEqual checks, the check values **remain completely unencrypted in memory** and are instantly identified:
 
-![](resurse/remediere-jadx-decompilat-before.png)
+![](../resurse/remediere-jadx-decompilat-before.png)
 
 **2. Fixed version (AFTER — architectural fix)**
 
@@ -308,7 +308,7 @@ To completely eliminate the vulnerability, the verification logic is extracted f
 
 * **In Android Studio (Secure Kotlin Code — LoginActivity.kt):** The source code no longer stores the "Dragos" and "4321Inad" values. It sends a network authentication request:
 
-![](resurse/remediere-jadx-after.png)
+![](../resurse/remediere-jadx-after.png)
 
 * **Even if the attacker finds the error message or password variable, there is no hardencoded value left in all the decompiled code. All it can see is that the app sends the data entered by the user to an external server for validation. Credentials can no longer be stolen from binary .apk.3. Practical conclusion**
 
@@ -385,7 +385,7 @@ To guarantee a clean test state on the laptop with **Pop!\_OS Linux**, the com.e
 
 Then on the physical phone (OnePlus 7 Pro with Root rights), the frida-server service located in /data/local/tmp/ was started in the background:
 
-![](resurse/frida-server-start-setup.png)
+![](../resurse/frida-server-start-setup.png)
 
 ## Step 2: Creating the Bypass Script (bypass.js)
 
@@ -393,7 +393,7 @@ To bypass the login screen without entering credentials, a JavaScript script was
 
 The script uses a modern Jetpack-based mechanism (androidx.activity.ComponentActivity), hooking on the onUserInteraction() method. At the first touch of the screen, the script dynamically creates a new Intent to MainActivity, forcing the app to load the main interface automatically:
 
-![](resurse/bypass-script.png)
+![](../resurse/bypass-script.png)
 
 ## Step 3: Identifying the PID and Injecting the Script
 
@@ -401,7 +401,7 @@ The MostSecureApp app has been opened on the OnePlus 7 Pro screen (showing the L
 
 After identifying the corresponding PID for the application, the script bypass.js was injected directly into the active process in memory:
 
-![](resurse/injecting-bypass-into-test-app.png)
+![](../resurse/injecting-bypass-into-test-app.png)
 
 ## Step 4: Attack Result and Bypass the Login Page
 
