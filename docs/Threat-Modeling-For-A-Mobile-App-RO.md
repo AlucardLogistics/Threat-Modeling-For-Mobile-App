@@ -241,13 +241,15 @@ Atunci când un atacator obține acces fizic la telefon, obiectivele sale sunt o
 
 Pentru a sintetiza amenințările la nivelul dispozitivului mobil, aplicăm componentele relevante din metodologia **STRIDE** (faza de analiză pe client):
 
-| **Componentă (Asset)** | **Categorie STRIDE** | **Descrierea Amenințării (Threat)** | **Impact (Risc)** | **Trust Boundary Breach** | **Control Defensiv (Remediation)** | **Risc Rezidual** |
+|  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Identificator Dispozitiv** | **Spoofing** | Folosirea unui emulator/dispozitiv clonat pentru a impersona dispozitivul legitim al clientului. | **Înalt** | Da (Device Perimeter) | Autentificare Multi-Factor (MFA) obligatorie și Device Fingerprinting avansat. | **Scăzut** |
-| **Cod Compilat în RAM** | **Tampering** | Modificarea instrucțiunilor binarului din memorie (ex: bypass UI cu Frida). | **Critic** | Da (OS Sandbox) | Implementarea protecțiilor RASP (Root & Hooking Detection). | **Mediu** |
-| **Jurnale de Audit Locale** | **Repudiation** | Efectuarea unei tranzacții de pe un dispozitiv compromis și contestarea ei ulterioară. | **Mediu** | Nu | Semnarea criptografică a tranzacțiilor (SCA) cu chei hardware. | **Scăzut** |
-| **Stocare Locală (SQLite/Cache)** | **Information Disclosure** | Extragerea cheilor din *SharedPreferences* sau citirea datelor din memoria cache necriptată. | **Critic** | Da (Storage Layer) | Salvarea cheilor în *Android KeyStore* (Hardware-backed) și UI Hardening (ștergere cache). | **Scăzut** |
-| **Proces OS (iOS/Android)** | **Elevation of Privilege** | Exploatarea vulnerabilităților de kernel ale OS-ului pentru a părăsi sandbox-ul aplicației. | **Critic** | Da (OS Kernel) | Aplicarea FLAG\_SECURE și limitarea funcționării pe versiuni vechi de OS. | **Mediu** |
+| **Componentă (Asset)** | **Categorie STRIDE** | **Descrierea Amenințării (Threat)** | **Impact (Risc)** | **Trust Boundary Breach** | **Control Defensiv (Remediation)** | **Risc Rezidual** |
+| **Identificator Dispozitiv** | **Spoofing** | Folosirea unui emulator/dispozitiv clonat pentru a impersona dispozitivul legitim al clientului. | **Înalt** | **Da (Device Perimeter)** | Autentificare Multi-Factor (MFA) obligatorie și Device Fingerprinting avansat. | **Scăzut** |
+| **Cod Compilat în RAM** | **Tampering** | Modificarea instrucțiunilor binarului din memorie (ex: bypass UI cu Frida). | **Critic** | **Da (OS Sandbox)** | Implementarea protecțiilor RASP (Root & Hooking Detection). | **Mediu** |
+| **Jurnale de Audit Locale** | **Repudiation** | Efectuarea unei tranzacții de pe un dispozitiv compromis și contestarea ei ulterioară. | **Mediu** | **Nu** | Semnarea criptografică a tranzacțiilor (SCA) cu chei hardware. | **Scăzut** |
+| **Stocare Locală (SQLite/Cache)** | **Information Disclosure** | Extragerea cheilor din *SharedPreferences* sau citirea datelor din memoria cache necriptată. | **Critic** | **Da (Storage Layer)** | Salvarea cheilor în *Android KeyStore* (Hardware-backed) și UI Hardening (ștergere cache). | **Scăzut** |
+| **Componente Intent / Deep Links & Interfață UI** | **Denial of Service** | Trimiterea de Intent-uri malformaționate către componente exportate sau fuzzing pe scheme Deep Link pentru a provoca crash-ul aplicației (Local DoS), ori blocarea contului prin request-uri API repetate. | **Mediu** | **Da (App IPC / REST API)** | Validarea strictă a datelor de intrare (try-catch pe Intent extras), setarea android:exported="false" și implementarea Rate-Limiting / WAF pe backend. | **Scăzut** |
+| **Proces OS (iOS/Android)** | **Elevation of Privilege** | Exploatarea vulnerabilităților de kernel ale OS-ului pentru a părăsi sandbox-ul aplicației. | **Critic** | **Da (OS Kernel)** | Aplicarea FLAG\_SECURE și limitarea funcționării pe versiuni vechi de OS. | **Mediu** |
 
 ### Limitele de Încredere (Trust Boundaries):
 
