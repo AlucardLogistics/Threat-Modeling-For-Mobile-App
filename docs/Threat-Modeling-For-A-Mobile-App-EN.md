@@ -56,7 +56,7 @@ GitHub: [Dragos S, AlucardLogistics](https://github.com/AlucardLogistics)
 The evolution of mobile telephony has transformed portable devices from simple voice communication tools into digital command centers for everyday life.
 
 * **90s - 2000s:** The first mobile applications were basic utilities, pre-installed on devices with proprietary operating systems (e.g. *Snake* on Nokia or the phonebook/computer applications on the Symbian and BlackBerry systems). They had isolated functionalities, without an internet connection.
-* **2007 - 2012:** The launch of the iPhone (iOS) in 2007 and Android in 2008, followed by the appearance of the App Store and Google Play, marked the transition to the era of smartphones. Apps have started to use 3G connections and offer native services (social networking, gaming, GPS navigation).
+* **2007 - 2012:** The launch of the iPhone (iOS) in 2007 and Android in 2008, followed by the appearance of the App Store and Google Play, marked the transition to the smartphone era. Apps began to use 3G connections and offer native services (social networking, gaming, GPS navigation).
 * **2013 - Present:** Modern applications have become complex ecosystems based on cloud architectures, microservices, artificial intelligence, biometric integrations and real-time data processing.
 
 ## 1.2 Impact of Evolution: Opportunities and Opportunities for Attack (Cyber Security)
@@ -78,7 +78,7 @@ The evolution of mobile telephony has transformed portable devices from simple v
 
 As mobile apps have differentiated themselves architecturally from classic web apps, the security community has realized that threats to the mobile ecosystem require a dedicated methodology.
 
-Thus, the **OWASP (Open Web Application Security Project)** organization created **the OWASP Mobile Top 10**, a globally standardized framework that classifies the 10 most critical security risks in the mobile environment (e.g.: *Insecure Data Storage, Insecure Communication, Insecure Authentication*). In addition, OWASP has developed the **Mobile** Application Security Verification Standard (MASVS) and  **Mobile Application Security Testing Guide (MASTG) standards, used by penetration testers to evaluate mobile applications.**
+Thus, the **OWASP (Open Web Application Security Project)** organization created  **the OWASP Mobile Top 10**, a globally standardized framework that classifies the 10 most critical security risks in the mobile environment (e.g.: *Insecure Data Storage, Insecure Communication, Insecure Authentication*). In addition, OWASP has developed the **MASVS** (Mobile Application Security Verification Standard) and **MASTG** (Mobile Application Security Testing Guide) standards, used by penetration testers to evaluate mobile applications.
 
 ## 1.4 Case Study: Model Application (Revolut)
 
@@ -92,7 +92,7 @@ For this threat modeling project, the application chosen as the model is **Revol
 
 ## 1.5 Comparativ: Web Application (Site Revolut) vs. Mobile Application (Android / iOS)
 
-A common mistake in cybersecurity is assuming that a mobile app is just a website packed into a smaller screen. In reality, the architecture, the running environment and the attack vectors are fundamentally different.
+A common mistake in cybersecurity is assuming that a mobile app is just a website packed into a smaller screen. In reality, the architecture, running environment, and attack vectors are fundamentally different.
 
 ![](../resurse/mobile-vs-browser-server.png)
 
@@ -102,18 +102,18 @@ A common mistake in cybersecurity is assuming that a mobile app is just a websit
 
 While both types of apps depend on the security of backend APIs, the mobile app introduces a whole class of **client-side threats that** web apps don't have:
 
-1. **Web Application (Site):** Running takes place in a completely browser-isolated environment (Browser Sandbox). The user or attacker does not download the full source code of the application to his computer, but only temporary HTML/JS files.
-2. **Mobile App (Android/iOS):** The full app package (.apk or .ipa file) is installed directly on your device's local storage. This gives the attacker direct physical access to the compiled binary code, allowing for static and dynamic analysis offline.
+1. **Web Application (Site):** Running takes place in a completely isolated environment from the browser (Browser Sandbox). The user or attacker does not download the complete source code of the application to his computer, but only temporary HTML/JS files.
+2. **Mobile App (Android/iOS):** The full app package (.apk or .ipa file) is installed directly on the device's local storage. This gives the attacker direct physical access to the compiled binary code, allowing for offline static and dynamic analysis.
 
 **Threat Comparison Chart**
 
 | **Security Dimension** | **Web Application (Web Revolut)** | **Mobile Application (Android / iOS)** |
 | --- | --- | --- |
-| **Possession of the source code** | **Private.** The backend code (Java, Node.js, Go) remains on Revolut's servers. The client only sees HTML/JS. | **Public/Explained.** The binary (APK/IPA) is on your phone. It can be decompiled (JADX, Ghidra) to extract logic or APIs. |
-| **Session Management** | **Short sessions.** Expires quickly when closing the tab or after inactivity (based on HTTPOnly Cookies). | **Long sessions.** The user remains logged in for weeks/months using Refresh Tokens saved on disk for quick access with fingerprint/FaceID. |
-| **Running Environment** | **Controlled by Browser.** The browser automatically applies strict rules (SOP - Same Origin Policy, XSS/CSRF protections). | **Hostile environment (Untrusted OS).** The phone can be Rooted (Android) or Jailbroken (iOS), voiding all operating system protections. |
+| **Possession of the source code** | **Private.** The backend code (Java, Node.js, Go) remains on Revolut's servers. The client only sees HTML/JS. | **Public/Explained.** The binary (APK/IPA) is on the phone. It can be decompiled (JADX, Ghidra) to extract logic or APIs. |
+| **Session Management** | **Short sessions.** Quickly expires when the tab is closed or after inactivity (based on HTTPOnly Cookies). | **Long sessions.** The user remains logged in for weeks/months using Refresh Tokens saved on disk for quick fingerprint/FaceID access. |
+| **Running Environment** | **Controlled by the Browser.** The browser automatically applies strict rules (SOP - Same Origin Policy, XSS/CSRF protections). | **Hostile environment (Untrusted OS).** The phone can be Rooted (Android) or Jailbroken (iOS), voiding all operating system protections. |
 | **Local Attack Vectors** | Limit yourself to Cross-Site Scripting (XSS) attacks or session hijacking through malicious browser extensions. | Local malware on the phone, Keyloggers, Overlay attacks (fake screen over the app), SMS/OTP interception, memory hooking (Frida). |
-| **Security Updates** | **Snapshots.** A vulnerability fixed on the server protects 100% of users immediately. | **Lens.** It is up to the user to update their app from the App Store/Play Store. Old and vulnerable versions may remain active. |
+| **Security Updates** | **Snapshots.** A vulnerability resolved on the server protects 100% of users immediately. | **Slow.** Depends on the user to update their app from the App Store/Play Store. Old and vulnerable versions may remain active. |
 
 **Mindset Shift: Pentest Web vs. Pentest Mobile**
 
@@ -129,7 +129,7 @@ The way of thinking of a penetration tester changes significantly depending on t
 
 * The focus becomes **hybrid**: on the one hand, the backend APIs are tested (just like on the web), but on the other hand,  **the application is attacked on the phone**.
 * Typical Mobile Pentester Questions:
-  1. **Binary inspection:** *"What information can I extract if I decompile the APK/IPA file? Are there secret keys or unpublished endpoints hardcoded in the code?"*
+  1. **Binary inspection:** *"What information can I extract if I decompile the APK/IPA file? Are there secret keys or unpublished endpoints hardencoded in the code?"*
   2. **Storage Security:** *"What gets saved in SQLite databases, SharedPreferences, or system logs if the phone is stolen?"*
   3. **Dynamic Hooking:** *"If I'm using a framework like* ***Frida****, can I change the instructions in memory while the app is running to skip the PIN entry screen or disable fingerprint verification?"*
   4. **Network Integrity:** *"How can I bypass SSL Certificate Pinning protections to intercept and alter traffic between the application and the Revolut server?"*
@@ -169,12 +169,12 @@ In order to effectively identify the attack surface and the critical components 
 * **Risk:** API-level vulnerabilities (e.g., BOLA/IDOR, manipulation of session parameters, or unauthorized queries).
 * **Trust Boundaries**
 * **Trust Boundary 1 (User/UI):** Separates the user's untrustworthy domain (touch input and potential malware installed on the device) from the phone's local storage modules.
-* **Trust Boundary 2 (Device/OS):** Separates the mobile application layer (standard sandbox) from the operating system and RAM of the process. Violation of this limit occurs on Root/Jailbreak phones.
+* **Trust Boundary 2 (Device/OS):** Separates the mobile app layer (standard sandbox) from the operating system and process RAM. Violation of this limit occurs on Root/Jailbreak phones.
 * **Trust Boundary 3 (Network):** Delineates the local mobile environment (which can be connected to unsecured public Wi-Fi networks) from the secure cloud area of the Revolut infrastructure (Core Banking & API Gateway).
 
 ## 2.2 Classification of Collected and Processed Data
 
-A modern financial technology (FinTech) application functions as a central data node. To comply with compliance requirements (KYC/AML) and to provide personalized services, Revolut collects several categories of data, categorized by sensitivity level:
+A modern financial technology (FinTech) application functions as a central data node. To comply with compliance requirements (KYC/AML) and provide personalized services, Revolut collects several categories of data, classified by sensitivity level:
 
 ![](../resurse/Date-Colectare-Revolut.png)
 
@@ -204,7 +204,7 @@ A modern financial technology (FinTech) application functions as a central data 
 
 ## 2.3 Threat Scenarios: Lost, Stolen, or Compromised Device
 
-According to the mobile security model, the physical device is considered an **untrusted environment**. Threats are divided into two major categories: attacks with physical access and attacks via the compromised operating system.
+According to the mobile security model, the physical device is considered an **untrusted environment**. Threats are divided into two major categories: attacks with physical access and attacks through the compromised operating system.
 
 **Scenario 1: Physical Access (Lost or Stolen Phone)**
 
@@ -219,7 +219,7 @@ When an attacker gains physical access to the phone, their goals are to bypass l
    * **Mechanism:** Notifications for OTP (One-Time Password) codes sent via SMS or Push notifications confirming transactions can be visible directly on the lock screen.
    * **Impact:** Bypass two-factor authentication (2FA) for online transactions.
 3. **Inspect the Interface Cache (Task Switcher Snapshots):**
-   * **Mechanism:** When the application is passed in the background, the operating system takes an automatic screenshot to display it in the Task Switcher. If the app doesn't hide the interface, the image saved unencrypted to the disk may contain your account balance or card details.
+   * **Mechanism:** When the application is switched to the background, the operating system takes an automatic screenshot to display it in the Task Switcher. If the application does not mask the interface, the image saved unencrypted on the disk may contain the account balance or card details.
 
 **Scenario 2: Compromised Operating System (Rooted/Jailbroken/Malware)**
 
@@ -228,7 +228,7 @@ In this scenario, the phone remains in the user's possession, but the security o
 ![](../resurse/OS-Compromis.png)
 
 1. **Dynamic Analysis and Runtime Hooking (e.g. Frida, Xposed):**
-   * **Mechanism:** On a device with root or jailbreak privileges, inter-application isolation (Sandboxing) disappears. An attacker or malware can inject code into the Revolut app's process while it is running in RAM.
+   * **Mechanism:** On a device with root or jailbreak privileges, sandboxing disappears. An attacker or malware module can inject code into the Revolut app's process while it is running in RAM.
    * **Impact:** Changes to internal function return values (e.g. forcing a checkPin() function to return true regardless of the PIN entered) or disabling fingerprint verification calls.
 2. **Overlay attacks:**
    * **Mechanism:** Using accessibility services or display permissions over other apps (specific to Android), a malicious app detects the opening of the Revolut app and instantly displays an identical login window on top of the real one.
@@ -240,18 +240,20 @@ In this scenario, the phone remains in the user's possession, but the security o
 
 To synthesize threats at the mobile device level, we apply the relevant components of the **STRIDE methodology**  (per-client analysis phase):
 
-| **Asset** | **Category STRIDE** | **Threat description** | **Impact (Risc)** | **Trust Boundary Breach** | **Control Defensiv (Remediation)** | **Risc Rezidual** |
+|  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Device Identifier** | **Spoofing** | Using a cloned emulator/device to impersonate the customer's legitimate device. | **High** | Da (Device Perimeter) | Mandatory Multi-Factor Authentication (MFA) and Advanced Device Fingerprinting. | **Low** |
-| **Code Compiled in RAM** | **Tampering** | Change the instructions of the in-memory binary (e.g. bypass UI with Frida). | **Chile** | Da (OS Sandbox) | Implementation of RASP (Root & Hooking Detection) protections. | **Environment** |
-| **Local Audit Logs** | **Repudiation** | Making a transaction from a compromised device and subsequently disputing it. | **Environment** | No | Cryptographic transaction signing (SCA) with hardware keys. | **Low** |
-| **Local Storage (SQLite/Cache)** | **Information Disclosure** | Extracting keys from *SharedPreferences* or reading data from the unencrypted cache. | **Chile** | Da (Storage Layer) | Save keys in *Android KeyStore* (Hardware-backed) and UI Hardening (clear cache). | **Low** |
-| **Process OS (iOS/Android)** | **Elevation of Privilege** | Exploiting OS kernel vulnerabilities to leave the application sandbox. | **Chile** | Da (OS Kernel) | Applying FLAG\_SECURE and limiting operation on older versions of OS. | **Environment** |
+| **Asset** | **Category STRIDE** | **Threat description** | **Impact (Risc)** | **Trust Boundary Breach** | **Control Defensiv (Remediation)** | **Risc Rezidual** |
+| **Device Identifier** | **Spoofing** | Using a cloned emulator/device to impersonate the customer's legitimate device. | **High** | **Yes (Device Perimeter)** | Mandatory Multi-Factor Authentication (MFA) and Advanced Device Fingerprinting. | **Low** |
+| **Code Compiled in RAM** | **Tampering** | Change the instructions of the in-memory binary (e.g. bypass UI with Frida). | **Critic** | **Yes (OS Sandbox)** | Implementation of RASP (Root & Hooking Detection) protections. | **Environment** |
+| **Local Audit Logs** | **Repudiation** | Making a transaction from a compromised device and subsequently disputing it. | **Medium** | **No** | Cryptographic transaction signing (SCA) with hardware keys. | **Low** |
+| **Local Storage (SQLite/Cache)** | **Information Disclosure** | Extracting keys from *SharedPreferences* or reading data from the unencrypted cache. | **Critic** | **Yes (Storage Layer)** | Save keys in *Android KeyStore* (Hardware-backed) and UI Hardening (clear cache). | **Low** |
+| **Intent Components / Deep Links & UI Interface** | **Denial of Service** | Sending malformed Intents to exported components or fuzzing on Deep Link schemes to cause application crash (Local DoS), or blocking the account through repeated API requests. | **Medium** | **Yes (App IPC / REST API)** | Strict validation of input data (try-catch on Intent extracted), android:exported="false" setting, and Rate-Limiting/WAF implementation on the backend. | **Low** |
+| **Process OS (iOS/Android)** | **Elevation of Privilege** | Exploiting OS kernel vulnerabilities to leave the application sandbox. | **Critic** | **Yes (OS Kernel)** | Applying FLAG\_SECURE and limiting operation on older versions of OS. | **Medium** |
 
-Trust Boundaries:
+### Trust Boundaries:
 
-* **Device Perimeter:** The boundary between the user and the phone. A breach here means that the attacker has physically or virtually gained access to the screen level.
-* **OS Sandbox:** The limit imposed by the operating system between applications. Breach (via Root/Jailbreak) allows a malicious process to read the memory of the banking application.
+* **Device Perimeter:** The boundary between the user and the phone. A breach here means that the attacker has physically or virtually gained access to the screen.
+* **OS Sandbox:** The limit imposed by the operating system between applications. Violation (via Root/Jailbreak) allows a malicious process to read the memory of the banking application.
 * **Storage Layer:** The limit of data protection at rest. The breach allows the extraction of persistent files directly from the disk.
 
 # DEMO: Practical Case Study — Reverse Engineering and Exploitation of OWASP M1 (Improper Credential Usage)
@@ -260,7 +262,7 @@ This section presents a practical demonstration of how the binary of an Android 
 
 ## Step 1: Create the demo app in Android Studio
 
-A simple Android application was developed in the **Android Studio** environment on the Pop**!\_OS Linux operating system**. The application simulates an authentication screen (LoginActivity), where the validation of credentials is done directly on the client side by comparing the data entered by the user with two constant variables (HARDCODED\_USER and HARDCODED\_PASS).
+A simple Android application has been developed in the **Android Studio** environment on the **Pop!\_OS Linux operating system**. The application simulates an authentication screen (LoginActivity), where the validation of credentials is done directly on the client side by comparing the data entered by the user with two constant variables (HARDCODED\_USER and HARDCODED\_PASS).
 
 ![](../resurse/aplicatia-in-android.png)
 
@@ -274,17 +276,17 @@ In the Pop!\_OS environment, the compiled binary file was located in the project
 
 ## Step 3: Decompile with JADX and discover credentials
 
-Using the JADX-GUI **reverse engineering utility**  installed on Pop!\_OS Linux, the app-debug.apk binary underwent a decompilation process to reconstruct the Java code from the .dex bytecode files.
+Using the JADX-GUI **reverse engineering utility** installed on Pop!\_OS Linux, the app-debug.apk binary underwent a decompilation process to reconstruct the Java code from the .dex bytecode files.
 
-An attacker doesn't have to read thousands of lines of code by hand. By using the Global Search function (*Global Search* / Ctrl+Shift+F) in JADX and querying key terms such as password, user, or admin, the hardencoded credentials were instantly identified in the LoginActivity class.
+An attacker doesn't have to read thousands of lines of code by hand. By using JADX's Global *Search* / Ctrl+Shift+F function and querying key terms such as password, user, or admin, hard-coded credentials were instantly identified in the LoginActivity class.
 
 ![](../resurse/decompilare-gasire-parola-user.png)
 
 ## Conclusion: Why is Improper Credential Usage at the top of the OWASP Mobile Top 10?
 
-Identifying hard-coded credentials and misusing authentication occupies the **M1 position**  in the OWASP Mobile ranking for several critical reasons:
+Identifying hard-coded credentials and misusing authentication occupies the **M1 position** in the OWASP Mobile ranking for several critical reasons:
 
-1. **The binary is always on the attacker's device:** Unlike a web application where the backend code remains protected on the server, the mobile package (.apk/.ipa) is saved entirely on local storage. With no **obfuscation** measures (e.g., ProGuard/R8/DexGuard) or cryptographic security in hardware, the code is an "open book."
+1. **The binary is always on the attacker's device:** Unlike a web application where the backend code remains protected on the server, the mobile package (.apk / .ipa) is saved entirely on local storage. Without **obfuscation** measures (e.g. ProGuard / R8 / DexGuard) or cryptographic security in the hardware, the code is an "open book".
 2. **Devastating Impact:** If the credentials stored in the code are general API keys, database passwords, or encryption secrets used by all users, compromising a single APK exposes the entire app infrastructure and its backend.
 3. **Minimal Exploitation Effort:** As demonstrated in this demo, identifying the vulnerability doesn't require advanced hacking knowledge or expensive basic open-source utility tools like JADX, and a few seconds of analysis are enough.
 
@@ -306,21 +308,21 @@ The analysis performed on the MostSecureApp application shows exactly how instru
 
 To completely eliminate the vulnerability, the verification logic is extracted from the graphical user interface (UI) and moved to the server.
 
-* **In Android Studio (Secure Kotlin Code — LoginActivity.kt):** The source code no longer stores the "Dragos" and "4321Inad" values. It sends a network authentication request:
+* **In Android Studio (Secure Kotlin Code — LoginActivity.kt):** The source code no longer stores the values "Dragos" and "4321Inad". It sends a network authentication request:
 
 ![](../resurse/remediere-jadx-after.png)
 
-* **Even if the attacker finds the error message or password variable, there is no hardencoded value left in all the decompiled code. All it can see is that the app sends the data entered by the user to an external server for validation. Credentials can no longer be stolen from binary .apk.3. Practical conclusion**
+* **Even if the attacker finds the error message or password variable, there is no hard-coded value left in all the decompiled code. All they can see is that the application sends the data entered by the user to an external server for validation. Credentials can no longer be stolen from the .apk.3 binary. Practical conclusion**
 
 The experiment demonstrates the fundamental rule of mobile security: **The mobile client is an *untrusted client***.
 
-All executable files .apk can be read by decompiling. Any if security check (user == "..." &&pass == "...") written locally on the phone provides an illusion of security and exposes the credentials of any user who uses analysis tools such as JADX.
+All executable .apk files can be read by decompiling. Any if (user == "..." && pass == "...") security check written locally on the phone provides an illusion of security and exposes the credentials of any user who uses analysis tools such as JADX.
 
 **Conclusion:** Authentication validation should NEVER take place exclusively on the client side, and secrets or credentials should NEVER be stored directly in the source code of the mobile application.
 
 # Chapter 3: API and Network Communications Risks
 
-Modern mobile apps (including Revolut) work as a Rich Client. They depend almost 100% on a centralized infrastructure of APIs (REST/GraphQL) to execute transactions, check balance, or authorize users.
+Modern mobile applications (including Revolut) work as a Rich Client. They depend almost 100% on a centralized infrastructure of APIs (REST/GraphQL) to execute transactions, check balance, or authorize users.
 
 ## 3.1 Network Traffic Interception: Man-in-the-Middle (MitM) Attacks
 
@@ -337,7 +339,7 @@ Once the traffic between the mobile app and the backend is intercepted or unders
 
 * **Description:** Occurs when the API does not verify that the authenticated user has the right to access the requested resource.
 * **Scenario on Revolut:** The application makes an HTTP request to get the transaction history: GET /api/v2/accounts/100452/transactions
-* **Exploitation:** The Pentester changes the 100452 parameter with 100453 in Burp Suite. If the server returns data to another client without checking if 100453 belongs to the current session, we have a massive BOLA/IDOR vulnerability.
+* **Exploitation:** The pentester changes the 100452 parameter with 100453 in Burp Suite. If the server returns data to another client without checking if 100453 belongs to the current session, we have a massive BOLA/IDOR vulnerability.
 
 **b. Broken Authentication & Token Mismanagement**
 
@@ -359,7 +361,7 @@ Enterprise-grade applications integrate dozens of third-party libraries to:
 * Bug and crash reporting (e.g. Firebase Crashlytics, Sentry).
 * Customer Support / Chat (e.g. Intercom, Zendesk).
 
-**Security Risk:** These SDKs run with the same privileges as the main application. If an unencrypted or misconfigured third-party SDK sends data in the background to its servers, it can unintentionally collect clipboard, geolocation data, or even snippets of financial responses, generating a data *leakage that* is difficult to detect.
+**Security Risk:** These SDKs run with the same privileges as the main application. If an unencrypted or misconfigured third-party SDK sends data in the background to its servers, it can unintentionally collect clipboard, geolocation data, or even snippets of financial responses, generating a data *leakage that is* difficult to detect.
 
 ## 3.4 Defensive Controls: Securing Communications and APIs
 
@@ -371,7 +373,7 @@ To counter these threats, Revolut apps implement advanced protections:
 2. **Parameter Grouping and Obfuscation (Custom Mutual TLS / HMAC Signing):**
    * Signing each API request with a dynamically generated cryptographic hash (HMAC) on the phone based on the body of the request and a temporary secret. If the attacker changes the transaction amount in Burp Suite, the signature becomes invalid and the server rejects the packet.
 3. **Strict Authorization Validation on the Backend:**
-   * The server should never trust the data coming from the mobile app. Each request must validate session token rights directly against the database (preventing BOLA attacks).
+   * The server must never trust the data coming from the mobile application. Each request must validate the session token rights directly against the database (preventing BOLA attacks).
 
 # DEMO: Dynamic Analysis and Bypass of Login Screen Using Frida (Dynamic Method Hooking)
 
@@ -397,7 +399,7 @@ The script uses a modern Jetpack-based mechanism (androidx.activity.ComponentAct
 
 ## Step 3: Identifying the PID and Injecting the Script
 
-The MostSecureApp app has been opened on the OnePlus 7 Pro screen (showing the Login screen). From the Pop!\_OS terminal, the list of active processes on the phone was queried to identify the unique process ID (PID):
+The MostSecureApp app was opened on the OnePlus 7 Pro screen (displaying the Login screen). From the Pop!\_OS terminal, the list of active processes on the phone was queried to identify the unique process ID (PID):
 
 After identifying the corresponding PID for the application, the script bypass.js was injected directly into the active process in memory:
 
@@ -405,7 +407,7 @@ After identifying the corresponding PID for the application, the script bypass.j
 
 ## Step 4: Attack Result and Bypass the Login Page
 
-Once the script was successfully injected, a simple tap on the phone screen (anywhere on the screen) was enough. Frida intercepted the touch event, executed the direct routing sequence, and instantly opened the MainActivity screen, completely ignoring the username and password validation.
+Once the script was successfully injected, a simple tap on the phone's screen (anywhere on the screen) was enough. Frida intercepted the touch event, executed the direct routing sequence, and instantly opened the MainActivity screen, completely ignoring the username and password validation.
 
 ## Conclusion: Why are RASP (Runtime Application Self-Protection) measures critical?
 
@@ -416,17 +418,17 @@ To stop Frida-type attacks in financial applications, advanced RASP-like defensi
 * **Root & Debugger Detection:** Block application execution if a debug environment or Root binary is detected.
 * **Anti-Frida Checks:** Scan local ports (e.g. port 27042) and process memory to detect the presence of the frida-server utility.
 * **Code Integrity Protection:** Real-time verification if the code of classes in memory has been changed by hooking.
-* **What the attack accomplished:** The Frida script only changed the local state in the process memory on the phone, forcing the Android operating system to display the MainActivity screen. It's a client/UI level bypass.
-* **Attack limit:** This bypass **does not compromise the account on the backend**. Without providing valid credentials on the Login screen, the central server does not issue an authenticated session token (e.g. OAuth/JWT token). As a result, any subsequent attempts in MainActivity to perform operations that require data from the server (API queries, transactions) will fail with an HTTP 401 Unauthorized error code.
+* **What the attack accomplished:** The Frida script only changed the local state in the process memory on the phone, forcing the Android operating system to display the MainActivity screen. It's a client/UI-level bypass.
+* **Attack limit:** This bypass **does not compromise the account on the backend**. Without providing valid credentials on the Login screen, the central server does not issue an authenticated session token (e.g. OAuth/JWT token). As a result, any subsequent attempt in MainActivity to perform operations that require data from the server (API queries, transactions) will fail with an HTTP 401 Unauthorized error code.
 * **Why is it still a security risk?** If the app keeps sensitive data cached locally on the device, or if the developers have made a **BOLA/IDOR architecture mistake**  (they don't check the session token on the backend for every action in MainActivity), the attacker could access sensitive information from the interface.
 
 # Chapter 4: Essential Security Measures and Mobile Application Protection
 
-To counter the static and dynamic attacks exemplified in the hands-on demonstrations, enterprise-level applications (especially those in the FinTech sector, such as Revolut) take a *Defense in Depth* approach. It combines international security standards with advanced code and execution protection technologies.
+To counter the static and dynamic attacks exemplified in the hands-on demonstrations, enterprise-level applications (especially those in the FinTech sector, such as Revolut) take a *Defense in Depth* approach. This combines international security standards with advanced code and execution protection technologies.
 
 ## 4.1 Standardul OWASP MASVS (Mobile Application Security Verification Standard)
 
-**MASVS** is the worldwide reference framework used by security architects and auditors to design and evaluate mobile applications. The standard structures the requirements on several levels of security:
+**MASVS** is the worldwide reference framework used by security architects and auditors to design and evaluate mobile applications. The standard structures requirements on several levels of security:
 
 | **MASVS Level** | **Guidance and Applicability** | **Description and Requirements** |
 | --- | --- | --- |
@@ -436,7 +438,7 @@ To counter the static and dynamic attacks exemplified in the hands-on demonstrat
 
 ## 4.2 Code Obfuscation and Binary Protection (Anti-JADX)
 
-As noted in **the JADX Demo**, unprotected source code compiled into .apk files can be disassembled almost entirely with utilities like JADX. To prevent this vulnerability, obfuscation techniques are used:
+As noted in **the JADX Demo**, unprotected source code compiled into .apk files can be almost entirely disassembled with utilities such as JADX. To prevent this vulnerability, obfuscation techniques are used:
 
 * **Minification and Rename of Identifiers (ProGuard / R8 / DexGuard):** Rename of descriptive classes, methods and variables (e.g. LoginActivity, verifyLogin()) into names with no contextual meaning (e.g. a, b.a()), massively making manual analysis more difficult.
 * **String Encryption:** All text constants, API URLs, and cryptographic keys are stored in encrypted binary form and decrypted only dynamically, in memory, at runtime.
@@ -447,15 +449,15 @@ As noted in **the JADX Demo**, unprotected source code compiled into .apk files 
 To block the **Method Hooking** and **Memory Code Injection attacks**  demonstrated in **Frida Demo 2**, the application must be aware of the environment in which it is running and protect itself:
 
 * **Debugging and Root Media Detection:** The app continuously checks if it is running in an emulator, if the device has Root access (/system/app/Superuser.apk or its binary), or if an external debugger is attached (android.os.Debug.isDebuggerConnected()).
-* **Anti-Frida Protection:** The application scans the process memory and internal network ports (e.g. port 27042 used by default by frida-server) and checks the integrity of the files in /proc/self/maps. If a hook is detected, the app closes its process instantly.
+* **Anti-Frida Protection:** The application scans the process memory and internal network ports (e.g. port 27042 used by default by frida-server) and verifies the integrity of the files in /proc/self/maps. If a hook is detected, the application closes its process instantly.
 * **Integrity Checking (Anti-Tampering):** Verification of the digital signature of the APK package and the checksum of the bytecode at startup, to prevent an attacker from modifying and recompiling the binary.
 
 ## 4.4 Biometric Authentication and Secure Storage of Secrets
 
 Storing credentials or session tokens directly in text files, SharedPreferences, or source code is a serious design mistake.
 
-1. **Android Keystore System:** Use of the dedicated hardware module (*Hardware-backed Keystore / TEE - Trusted Execution Environment*) for generating and storing cryptographic keys. The keys never leave your phone's secure hardware chip.
-2. **Biometric Authentication (BiometricPrompt API):** Raising the level of security by integrating fingerprint sensors or facial recognition. The encryption of sensitive data is directly related to the user's successful biometric authentication.
+1. **Android Keystore System:** Use of the dedicated hardware module (*Hardware-backed Keystore / TEE - Trusted Execution Environment*) to generate and store cryptographic keys. The keys never leave the phone's secure hardware chip.
+2. **Biometric Authentication (BiometricPrompt API):** Raising the level of security through the integration of fingerprint sensors or facial recognition. Encryption of sensitive data is directly related to successful biometric user authentication.
 3. **EncryptedSharedPreferences:** Automatic encryption of configuration data and local tokens using keys managed through Android Keystore, preventing them from being read in case the device is lost or extracted via backup.
 
 ## 4.5 Risks of Downloading Apps from Unofficial Sources (Sideloading)
@@ -474,12 +476,12 @@ Unlike official stores (**Google Play Store** and **Apple App Store**), which us
 ### 2. Banker Trojans and Overlay Attacks
 
 * **Description:** Malicious apps specifically designed to target financial apps (such as Revolut).
-* **Mechanism:** The malware detects when the user opens the legitimate banking app and instantly displays a fake authentication window on top of the real one (**Overlay Attack**). The user enters their login details or PIN believing that they are in the banking app, giving attackers direct access to their account.
+* **Mechanism:** The malware detects when the user opens the legitimate banking app and instantly displays a fake login window above the real one (**Overlay Attack**). The user enters their login or PIN believing they are in the banking app, giving attackers direct access to their account.
 
 ### 3. Spyware and Infostealers
 
 * **Description:** Malware designed to spy on the user's activity in the background without their consent.
-* **Mechanism:** Once installed from unsafe sources, the app asks for excessive permissions (Accessibility, SMS, Contacts, Microphone, Storage). It can intercept **2FA/OTP verification codes received via SMS**, record keystrokes (*Keylogging*), or transmit contact list and private files to a command and control server (C2).
+* **Mechanism:** Once installed from insecure sources, the application asks for excessive permissions (Accessibility, SMS, Contacts, Microphone, Storage). It can intercept **2FA/OTP verification codes received via SMS**, record keystrokes (*Keylogging*), or transmit contact list and private files to a command and control server (C2).
 
 ### 4. Ransomware Mobil
 
@@ -489,11 +491,11 @@ Unlike official stores (**Google Play Store** and **Apple App Store**), which us
 ### 5. Android Accessibility Services Exploitation
 
 * **Description:** Accessibility services in Android are designed to help users with disabilities by giving apps permission to read the screen and perform simulated taps.
-* **Risk:** Unofficially downloaded malware tricks the user into granting accessibility permissions. Once obtained, the malicious application can perform financial transactions in the background, approve other dangerous permissions on its own, and protect itself against uninstallation.
+* **Risk:** Unofficially downloaded malware tricks the user into granting it accessibility permissions. Once obtained, the malicious application can conduct financial transactions in the background, approve other dangerous permissions on its own, and protect itself against uninstallation.
 
 **Defensive Measures and Recommendations for Users**
 
-1. **Disable Install from Unknown Sources:** Keep the *"Install from unknown sources"* option disabled in Android settings.
+1. **Disable Install from Unknown Sources:** Keep the *"Install from unknown sources"*  option disabled in Android settings.
 2. **Exclusive Use of Official Stores:** Download apps only from the Google Play Store or Apple App Store.
 3. **Checking Permissions Requests:** A simple flashlight app or game should never request access to SMS, Accessibility Services, or Contacts.
 4. **Google Play Protect Protection:** Keep the built-in periodic scan module active on your Android system.
@@ -505,8 +507,8 @@ This project provided a technical and practical perspective on the mobile applic
 ### Main Knowledge and Skills Acquired
 
 1. **Difference Between Static and Dynamic Analysis:**
-   * Through **Demo 1 (JADX),** it was understood how vulnerable executable binary code is .apk in the absence of rigorous obfuscation techniques (ProGuard/R8). The extraction of hard-coded credentials showed why **OWASP M1: Improper Credential Usage** occupies the top position in the mobile risk rankings and why no sensitive information or critical authentication logic should be left exclusively on the *client-side*.
-   * Through **Demo 2 (Frida),** the concept of *Dynamic Instrumentation* on a physical device (OnePlus 7 Pro) was explored. It has been shown that static analysis is not the only attack vector; an attacker with root access can manipulate the execution stream from memory in real time via *method hooking* (intercepting onUserInteraction()), completely bypassing authentication screens without altering the binary on disk.
+   * Through **Demo 1 (JADX),** it was understood how vulnerable executable binary code is .apk in the absence of rigorous obfuscation techniques (ProGuard/R8). The extraction of hardcoded credentials showed why **OWASP M1: Improper Credential Usage** ranks first in the ranking of mobile risks and why no sensitive information or critical authentication logic should be left exclusively on the *client-side*.
+   * Through **Demo 2 (Frida),** the concept of *Dynamic Instrumentation* on a physical device (OnePlus 7 Pro) was explored. It has been shown that static analysis is not the only attack vector; an attacker with Root access can manipulate the execution flow from memory in real time through *method hooking* (intercepting onUserInteraction()), completely bypassing authentication screens without altering the binary on disk.
 2. **Defense in Depth *Architecture*:**
    * Practical experience has demonstrated the need to implement active defensive controls. The protection of modern mobile applications cannot be based on a single mechanism, but requires a multi-layered approach: encryption of data at rest (*Android Keystore*), securing network communications (*SSL/TLS Pinning*), binary protection (*Obfuscation*) and self-protection at the execution level (**RASP** - Root detection, Anti-Frida, Anti-Debug).
 3. **Pentester Thinking (Security Mindset):**
